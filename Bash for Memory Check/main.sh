@@ -16,6 +16,11 @@ echo %USED= $USED
 #echo $RESULT
 #echo $myvar3
 #echo "Hello World!" 
+#now="$(date)"
+#printf "Current date and time %s\n" "$now"
+
+
+
 
 declare -i CRIT
 declare -i WARN
@@ -61,7 +66,11 @@ else
         else
                 if [ $USED -ge $CRIT ] ; then
                         echo "Used Memory is greater than or equal to Critical Threshold."
-                        
+                        SUBJECT="$(date +'%Y%m%d %R') memory check -critical"
+                        echo $SUBJECT
+                        mail -s $SUBJECT russell.jaravata@gmail.com <<< "message"
+                        mail -s $SUBJECT russell.jaravata@gmail.com < /dev/null
+                        mutt -s $SUBJECT russell.jaravata@gmail.com < /dev/null
                         exit 2
                 #else
                  #       echo "Please make a choice between 1-3 !"
