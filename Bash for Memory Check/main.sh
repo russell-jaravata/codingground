@@ -66,6 +66,11 @@ else
                         echo "Used Memory is greater than or equal to Critical Threshold."
                         SUBJECT="$(date +'%Y%m%d %R') memory check -critical"
                         echo $SUBJECT
+                        MESSAGE=`ps axo %mem,pid,euser,cmd | sort -nr | head -n 10`
+                        mail -s $SUBJECT $EMAIL << EOF
+                        Top 10 Processes using a lot of memory: 
+                        $MESSAGE
+EOF
                         #mail -s $SUBJECT russell.jaravata@gmail.com <<< "message"
                         #mail -s $SUBJECT russell.jaravata@gmail.com < /dev/null
                         #mutt -s $SUBJECT russell.jaravata@gmail.com < /dev/null
