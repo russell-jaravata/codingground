@@ -64,7 +64,11 @@ else
         else
                 if [ $USED -ge $CRIT ] ; then
                         echo "Used Memory is greater than or equal to Critical Threshold."
-                        SUBJECT="$(date +'%Y%m%d') $(date +'%H') : $(date +'%M') memory check -critical"
+                        DATE="$(date +'%Y%m%d')"
+                        DATE2=$(echo $DATE)
+                        TIME="$(date +'%H') : $(date +'%M')"
+                        TIME2=$(echo $TIME)
+                        SUBJECT="$DATE2 $TIME2 memory check -critical"
                         echo $SUBJECT
                         MESSAGE=`ps axo %mem,pid,euser,cmd | sort -nr | head -n 10`
                         mail -s $SUBJECT $EMAIL << EOF
